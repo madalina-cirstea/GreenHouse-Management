@@ -11,7 +11,6 @@ namespace GreenHouse_Management.Controllers
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
 
-
         // GET: /Sensors or /Sensors/Index
         public ActionResult Index()
         {
@@ -39,6 +38,40 @@ namespace GreenHouse_Management.Controllers
             }
 
             return RedirectToAction("Add");
+        }
+
+        // GET: /Sensors/Edit/id
+        public ActionResult Edit(int? id)
+        {
+            if (id.HasValue)
+            {
+                Sensor sensor = ctx.Sensors.Find(id);
+                if (sensor == null)
+                {
+                    return HttpNotFound("Couldn't find the sensor with id " + id.ToString());
+                }
+                return View(sensor);
+            }
+            return HttpNotFound("Missing sensor id parameter!");
+        }
+
+        // PUT: /Sensors/Update
+        [HttpPut]
+        public ActionResult Update(Sensor s)
+        {
+            if (ModelState.IsValid)
+            {
+                Sensor sensor = ctx.Sensors.Single(a => a.SensorId == s.SensorId);
+                if (TryUpdateModel(sensor))
+                {
+                    sensor.Name = s.Name;
+                    sensor.Model = s.Model;
+                    sensor.OperatingState = s.OperatingState;
+                    ctx.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
     }
 }

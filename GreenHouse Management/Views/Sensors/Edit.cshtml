@@ -1,0 +1,34 @@
+﻿
+@model GreenHouse_Management.Models.Sensor
+
+@using (Html.BeginForm(actionName: "Update", controllerName: "Sensors"))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    <!--camp ascuns pentru a retine id-ul obiectului-->
+    @Html.HiddenFor(s => s.SensorId)
+    <br />
+
+    @Html.Label("Name", "Name:")
+    <br />
+    @Html.EditorFor(s => s.Name, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(s => s.Name, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("Model", "Model:")
+    <br />
+    @Html.EditorFor(s => s.Model, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(s => s.Model, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("OperatingState", "OperatingState:")
+    <br />
+    @Html.TextAreaFor(s => s.OperatingState, new { @class = "form-control", @rows = "10" })
+    @Html.ValidationMessageFor(s => s.OperatingState, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn btn-primary" type="submit">Update</button>
+}
