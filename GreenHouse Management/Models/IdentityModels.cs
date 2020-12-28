@@ -25,6 +25,8 @@ namespace GreenHouse_Management.Models
         {
         }
 
+        public DbSet<Sensor> Sensors { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
