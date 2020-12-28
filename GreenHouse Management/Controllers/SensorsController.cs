@@ -73,5 +73,23 @@ namespace GreenHouse_Management.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        // DELETE: /Sensors/Delete/id
+        [HttpDelete]
+        public ActionResult Delete(int? id)
+        {
+            if (id.HasValue)
+            {
+                Sensor sensor = ctx.Sensors.Find(id);
+                if (sensor != null)
+                {
+                    ctx.Sensors.Remove(sensor);
+                    ctx.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return HttpNotFound("Couldn't find the sensor with id " + id.ToString());
+            }
+            return HttpNotFound("Missing sensor id parameter!");
+        }
     }
 }

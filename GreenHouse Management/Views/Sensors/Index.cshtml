@@ -1,4 +1,28 @@
-﻿@foreach (var item in Model)
+﻿@model List<GreenHouse_Management.Models.Sensor>
+
+@foreach (var item in Model)
 {
     <p>@item.Name</p>
+
+
+    using (Html.BeginForm(actionName: "Edit", controllerName: "Sensors", method: FormMethod.Get, routeValues: new { id = item.SensorId }))
+    {
+        <button class="btn btn-primary">Update</button>
+    }
+    <br />
+
+    using (Html.BeginForm(actionName: "Delete", controllerName: "Sensors", routeValues: new { id = item.SensorId }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-primary col-lg-1" type="submit">Delete</button>
+    }
+    <br />
+    <br />
+}
+
+<br />
+
+@using (Html.BeginForm(actionName: "Add", controllerName: "Sensors", method: FormMethod.Get))
+{
+    <button class="btn btn-primary">Add new sensor</button>
 }
