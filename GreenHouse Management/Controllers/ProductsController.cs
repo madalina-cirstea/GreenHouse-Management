@@ -54,9 +54,6 @@ namespace GreenHouse_Management.Controllers
                 CustomersList = GetAllCustomers()
             };
 
-            if (pc.CustomersList.Count() == 0)
-                return RedirectToAction("Index");
-
             return View(pc);
         }
 
