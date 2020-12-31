@@ -1,15 +1,41 @@
-﻿<form method="post" action="/Sensors/Create">
-    <label>Name</label>
-    <br />
-    <input type="text" name="Name" />
-    <br />
-    <label>Model</label>
-    <br />
-    <input type="text" name="Model" />
-    <br />
-    <label>OperatingState</label>
-    <br />
-    <input type="text" name="OperatingState" />
-    <br /><br />
-    <button type="submit">Add</button>
-</form>
+﻿@model GreenHouse_Management.Models.Sensor
+
+@using (Html.BeginForm("Create", "Sensors", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(s => s.SensorId)
+
+    <h4>Add a new sensor</h4>
+
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(s => s.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(s => s.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(s => s.Model, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(s => s.Model, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Model, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(s => s.OperatingState, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(s => s.OperatingState, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.OperatingState, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-success inline_button" value="Create" />
+        </div>
+    </div>
+}
