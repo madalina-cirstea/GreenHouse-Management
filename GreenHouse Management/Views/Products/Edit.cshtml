@@ -23,19 +23,5 @@
     <br />
     <br />
 
-    @Html.Label("ProductKey", "Product key:")
-    <br />
-    @Html.EditorFor(p => p.ProductKey, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(p => p.ProductKey, "", new { @class = "text-danger" })
-    <br />
-    <br />
-
-    @Html.Label("CustomerId", "CustomerId:")
-    <br />
-    @Html.EditorFor(p => p.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(p => p.CustomerId, "", new { @class = "text-danger" })
-    <br />
-    <br />
-
     <button class="btn btn-primary" type="submit">Update</button>
 }

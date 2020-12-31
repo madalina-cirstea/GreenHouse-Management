@@ -4,6 +4,9 @@
 {
     <p>@item.Name</p>
 
+    <a href="/products/details/@item.ProductId" class="btn btn-primary" type="submit">Details</a>
+    <br />
+    <br />
 
     using (Html.BeginForm(actionName: "Edit", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = item.ProductId }))
     {
