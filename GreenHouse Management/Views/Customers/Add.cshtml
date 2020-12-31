@@ -1,0 +1,49 @@
+﻿@model GreenHouse_Management.Models.Customer
+
+@using (Html.BeginForm("Create", "Customers", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(c => c.CustomerId)
+
+    <h4>Add a new customer</h4>
+
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(c => c.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(c => c.PhoneNumber, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(c => c.PhoneNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(c => c.Address, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(c => c.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-success inline_button" value="Create" />
+        </div>
+    </div>
+}

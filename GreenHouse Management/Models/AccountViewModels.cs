@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using GreenHouse_Management.Models.Validations;
 
 namespace GreenHouse_Management.Models
 {
@@ -79,6 +80,13 @@ namespace GreenHouse_Management.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        /*
+        [Required]
+        [ProductKeyValidator]
+        [Display(Name = "Product key")]
+        public string ProductKey { get; set; }
+        */
     }
 
     public class ResetPasswordViewModel

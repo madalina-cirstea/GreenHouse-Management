@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace GreenHouse_Management.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public ActionResult Index()

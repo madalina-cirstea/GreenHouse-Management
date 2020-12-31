@@ -1,0 +1,40 @@
+﻿@model GreenHouse_Management.Models.ViewModels.ProductCustomersViewModel
+@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(p => p.Product.ProductId)
+
+<h4>Add a new sold product with the associated buyer</h4>
+
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Product.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(p => p.Product.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Product.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(p => p.Product.Status, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(p => p.Product.Status, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Product.Status, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+       
+        @Html.LabelFor(p => p.Product.CustomerId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(p => p.Product.CustomerId, new SelectList(Model.CustomersList, "Value", "Text"), new { @class = "form - control" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-success inline_button" value="Create" />
+        </div>
+    </div>
+}

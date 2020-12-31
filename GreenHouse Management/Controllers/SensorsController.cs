@@ -7,9 +7,10 @@ using System.Web.Mvc;
 
 namespace GreenHouse_Management.Controllers
 {
+    [AllowAnonymous]
     public class SensorsController : Controller
     {
-        private ApplicationDbContext ctx = new ApplicationDbContext();
+        private readonly ApplicationDbContext ctx = new ApplicationDbContext();
 
         // GET: /Sensors or /Sensors/Index
         public ActionResult Index()
@@ -21,7 +22,8 @@ namespace GreenHouse_Management.Controllers
         // GET: /Sensors/Add
         public ActionResult Add()
         {
-            return View();
+            Sensor sensor = new Sensor();
+            return View(sensor);
         }
 
         // POST: /Sensors/Create
@@ -37,7 +39,7 @@ namespace GreenHouse_Management.Controllers
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Add");
+            return View("Add", s);
         }
 
         // GET: /Sensors/Edit/id
@@ -71,7 +73,7 @@ namespace GreenHouse_Management.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View("Edit", s);
         }
 
         // DELETE: /Sensors/Delete/id

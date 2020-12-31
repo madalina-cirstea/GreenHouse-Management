@@ -1,0 +1,39 @@
+﻿@model GreenHouse_Management.Models.ViewModels.ProductsCustomersViewModel
+
+@foreach (var item in Model.ProductsList)
+{
+    <p>@item.Name</p>
+
+
+    using (Html.BeginForm(actionName: "Edit", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = item.ProductId }))
+    {
+        <button class="btn btn-primary">Update</button>
+    }
+    <br />
+
+    using (Html.BeginForm(actionName: "Delete", controllerName: "Products", routeValues: new { id = item.ProductId }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-primary col-lg-1" type="submit">Delete</button>
+    }
+    <br />
+    <br />
+}
+
+<br />
+
+@if (Model.CustomersList.Count() == 0)
+{
+    using (Html.BeginForm(actionName: "Add", controllerName: "Products", method: FormMethod.Get))
+    {
+        <button class="btn btn-primary" disabled>Add new product</button>
+        <p style="color:red;">There are no related customers! Add the customer first!</p>
+    }
+}
+else
+{
+    using (Html.BeginForm(actionName: "Add", controllerName: "Products", method: FormMethod.Get))
+    {
+        <button class="btn btn-primary">Add new product</button>
+    }
+}

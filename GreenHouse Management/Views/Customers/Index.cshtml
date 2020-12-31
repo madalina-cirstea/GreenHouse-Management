@@ -1,0 +1,28 @@
+﻿@model List<GreenHouse_Management.Models.Customer>
+
+@foreach (var item in Model)
+{
+    <p>@item.Name</p>
+
+
+    using (Html.BeginForm(actionName: "Edit", controllerName: "Customers", method: FormMethod.Get, routeValues: new { id = item.CustomerId }))
+    {
+        <button class="btn btn-primary">Update</button>
+    }
+    <br />
+
+    using (Html.BeginForm(actionName: "Delete", controllerName: "Customers", routeValues: new { id = item.CustomerId }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-primary col-lg-1" type="submit">Delete</button>
+    }
+    <br />
+    <br />
+}
+
+<br />
+
+@using (Html.BeginForm(actionName: "Add", controllerName: "Customers", method: FormMethod.Get))
+{
+    <button class="btn btn-primary">Add new customer</button>
+}
