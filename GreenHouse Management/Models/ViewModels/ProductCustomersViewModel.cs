@@ -13,7 +13,7 @@ namespace GreenHouse_Management.Models.ViewModels
         [Required]
         public Product Product { get; set; }
         
-        //[Required]
+        [Required]
         public IEnumerable<SelectListItem> CustomersList { get; set; }
     }
 }
