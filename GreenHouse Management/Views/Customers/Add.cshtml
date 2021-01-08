@@ -5,14 +5,13 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(c => c.CustomerId)
 
-    <h4>Add a new customer</h4>
-
+    <h4>Add new customer</h4>
     <hr />
 
     <div class="form-group">
         @Html.LabelFor(c => c.Name, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+            @Html.TextBoxFor(c => c.Name, new { placeholder = "eg. John Smith", @class = "form-control" })
             @Html.ValidationMessageFor(c => c.Name, "", new { @class = "text-danger" })
         </div>
 
@@ -20,7 +19,7 @@
 
         @Html.LabelFor(c => c.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(c => c.Email, new { placeholder = "eg. john.smith@gmail.com", @class = "form-control" })
             @Html.ValidationMessageFor(c => c.Email, "", new { @class = "text-danger" })
         </div>
 
@@ -28,7 +27,7 @@
 
         @Html.LabelFor(c => c.PhoneNumber, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(c => c.PhoneNumber, new { @class = "form-control" })
+            @Html.TextBoxFor(c => c.PhoneNumber, new { placeholder = "eg. xxxxxxxxxx", @class = "form-control" })
             @Html.ValidationMessageFor(c => c.PhoneNumber, "", new { @class = "text-danger" })
         </div>
 
@@ -36,14 +35,15 @@
 
         @Html.LabelFor(c => c.Address, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(c => c.Address, new { @class = "form-control" })
+            @Html.TextBoxFor(c => c.Address, new { placeholder = "eg. street, number, county, country", @class = "form-control" })
             @Html.ValidationMessageFor(c => c.Address, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-success inline_button" value="Create" />
+            <a href="/customers" class="btn btn-warning inline_button" type="submit">Back</a>
+            <input type="submit" class="btn btn-success inline_button" value="Add" />
         </div>
     </div>
 }

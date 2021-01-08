@@ -1,28 +1,62 @@
 ﻿@model List<GreenHouse_Management.Models.Customer>
 
-@foreach (var item in Model)
-{
-    <p>@item.Name</p>
+<h4>All customers:</h4>
+<hr />
 
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No customers found.</td>
+            </tr>
+        }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th data-defaultsign="_19">Customer name</th>
+                    <th data-defaultsign="AZ">Email</th>
+                    <th data-defaultsign="AZ">Phone number</th>
+                    <th>Details</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
 
-    using (Html.BeginForm(actionName: "Edit", controllerName: "Customers", method: FormMethod.Get, routeValues: new { id = item.CustomerId }))
-    {
-        <button class="btn btn-primary">Update</button>
-    }
-    <br />
+            foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.Name</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.PhoneNumber</td>
 
-    using (Html.BeginForm(actionName: "Delete", controllerName: "Customers", routeValues: new { id = item.CustomerId }))
-    {
-        @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-primary col-lg-1" type="submit">Delete</button>
-    }
-    <br />
-    <br />
-}
+                    <td>
+                        @using (Html.BeginForm(actionName: "Details", controllerName: "Customers", method: FormMethod.Get, routeValues: new { id = customer.CustomerId }))
+                        {
+                            <button class="btn btn-primary">Details</button>
+                        }
+                    </td>
 
-<br />
+                    <td>
+                        @using (Html.BeginForm(actionName: "Edit", controllerName: "Customers", method: FormMethod.Get, routeValues: new { id = customer.CustomerId }))
+                        {
+                            <button class="btn btn-primary">Update</button>
+                        }
+                    </td>
 
-@using (Html.BeginForm(actionName: "Add", controllerName: "Customers", method: FormMethod.Get))
-{
-    <button class="btn btn-primary">Add new customer</button>
-}
+                    <td>
+                        @using (Html.BeginForm(actionName: "Delete", controllerName: "Customers", routeValues: new { id = customer.CustomerId }))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="btn btn-primary" type="submit">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<a href="/" class="btn btn-warning inline_button" type="submit">Back Home</a>
+<a href="/customers/add" class="btn btn-primary" type="submit">Add new customer</a>

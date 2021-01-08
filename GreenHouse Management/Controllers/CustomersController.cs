@@ -26,22 +26,39 @@ namespace GreenHouse_Management.Controllers
             return View(customer);
         }
 
+        // GET: /Customers/Details/id
+        public ActionResult Details(int? id)
+        {
+            if (id.HasValue)
+            {
+                Customer customer = ctx.Customers.Find(id);
+                if (customer == null)
+                {
+                    return HttpNotFound("Couldn't find the customer with id " + id.ToString());
+                }
+                return View(customer);
+            }
+            return HttpNotFound("Missing customer id parameter!");
+        }
+
         // POST: /Customers/Create
         [HttpPost]
         public ActionResult Create(Customer c)
         {
-            // verifica daca s-a realizat corect fenomenul de MODEL BINDING
-            // - daca nu s-au incalcat in timpul procesului de binding reguli de validare 
-
-            if (ModelState.IsValid)
+            try
             {
-                ctx.Customers.Add(c);
-                ctx.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    ctx.Customers.Add(c);
+                    ctx.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View("Add", c);
             }
-
-
-            return View("Add", c);
+            catch (Exception e)
+            {
+                return View("Add", c);
+            }
         }
 
         // GET: /Customers/Edit/id
@@ -63,21 +80,27 @@ namespace GreenHouse_Management.Controllers
         [HttpPut]
         public ActionResult Update(Customer c)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Customer customer = ctx.Customers.Single(a => a.CustomerId == c.CustomerId);
-                if (TryUpdateModel(customer))
+                if (ModelState.IsValid)
                 {
-                    customer.Name = c.Name;
-                    customer.Email = c.Email;
-                    customer.PhoneNumber = c.PhoneNumber;
-                    customer.Address = c.Address;
-
-                    ctx.SaveChanges();
+                    Customer customer = ctx.Customers.Single(a => a.CustomerId == c.CustomerId);
+                    if (TryUpdateModel(customer))
+                    {
+                        customer.Name = c.Name;
+                        customer.Email = c.Email;
+                        customer.PhoneNumber = c.PhoneNumber;
+                        customer.Address = c.Address;
+                        ctx.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+                return View("Edit", c);
             }
-            return View("Edit", c);
+            catch (Exception e)
+            {
+                return View("Edit", c);
+            }
         }
 
         // DELETE: /Customers/Delete/id

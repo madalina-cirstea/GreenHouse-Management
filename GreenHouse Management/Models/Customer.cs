@@ -21,8 +21,7 @@ namespace GreenHouse_Management.Models
         public string Email { get; set; }
 
         [Required]
-        [DataType(DataType.PhoneNumber)]
-        [Phone]
+        [RegularExpression(@"^0\d{2}([\s.-])?\d{3}([\s.-])?\d{4}$", ErrorMessage = "Phone number must have a valid format!")]
         public string PhoneNumber { get; set; }
 
         [Required]
