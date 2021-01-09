@@ -12,28 +12,22 @@ namespace GreenHouse_Management.Models
         public int ProductId { get; set; }
 
         [Required]
+        [MinLength(5, ErrorMessage = "Product name cannot be less than 5!"),
+         MaxLength(20, ErrorMessage = "Product name cannot be more than 20!")]
         public string Name { get; set; }
 
-        public string ProductKey { get; set; }
+        [Required]
+        [MinLength(10, ErrorMessage = "Product name cannot be less than 10!"),
+         MaxLength(50, ErrorMessage = "Product name cannot be more than 50!")]
+        public string Description { get; set; }
 
         [Required]
-        public string Status { get; set; }
+        [RegularExpression(@"^[a-z]\d+-\d+$", ErrorMessage = "Invalid key product format!")]
+        public string ProductKey { get; set; }
 
-        // FK
         [Required]
         [Display(Name = "Customer")]
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
-
-        public Product() { }
-
-        // copy constructor 
-        public Product(Product p)
-        {
-            ProductId = p.ProductId;
-            Name = p.Name;
-            Status = p.Status;
-            CustomerId = p.CustomerId;
-        }
     }
 }
