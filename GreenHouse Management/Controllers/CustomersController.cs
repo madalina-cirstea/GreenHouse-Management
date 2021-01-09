@@ -26,21 +26,6 @@ namespace GreenHouse_Management.Controllers
             return View(customer);
         }
 
-        // GET: /Customers/Details/id
-        public ActionResult Details(int? id)
-        {
-            if (id.HasValue)
-            {
-                Customer customer = ctx.Customers.Find(id);
-                if (customer == null)
-                {
-                    return HttpNotFound("Couldn't find the customer with id " + id.ToString());
-                }
-                return View(customer);
-            }
-            return HttpNotFound("Missing customer id parameter!");
-        }
-
         // POST: /Customers/Create
         [HttpPost]
         public ActionResult Create(Customer c)
@@ -59,6 +44,21 @@ namespace GreenHouse_Management.Controllers
             {
                 return View("Add", c);
             }
+        }
+
+        // GET: /Customers/Details/id
+        public ActionResult Details(int? id)
+        {
+            if (id.HasValue)
+            {
+                Customer customer = ctx.Customers.Find(id);
+                if (customer == null)
+                {
+                    return HttpNotFound("Couldn't find the customer with id " + id.ToString());
+                }
+                return View(customer);
+            }
+            return HttpNotFound("Missing customer id parameter!");
         }
 
         // GET: /Customers/Edit/id
