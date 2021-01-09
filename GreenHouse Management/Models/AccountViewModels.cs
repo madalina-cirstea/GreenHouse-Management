@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using GreenHouse_Management.Models.Validations;
 
 namespace GreenHouse_Management.Models
@@ -78,15 +79,18 @@ namespace GreenHouse_Management.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        /*
         [Required]
-        [ProductKeyValidator]
-        [Display(Name = "Product key")]
-        public string ProductKey { get; set; }
-        */
+        [Display(Name = "Role name")]
+        public string RoleName { get; set; }
+        public IEnumerable<SelectListItem> RolesList { get; set; }
+
+        [Required]
+        [RegistrationCodeValidator]
+        [Display (Name ="Registration code")]
+        public string RegistrationCode { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -104,7 +108,7 @@ namespace GreenHouse_Management.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
