@@ -8,12 +8,12 @@ using System.Web.Mvc;
 
 namespace GreenHouse_Management.Models.ViewModels
 {
-    public class ProductsCustomersViewModel
+    public class ProductViewModel
     {
         [Required]
         public List<Product> ProductsList { get; set; }
 
         [Required]
-        public List<Customer> CustomersList { get; set; }
+        public bool AllowAddAction { get; set; }
     }
 }
