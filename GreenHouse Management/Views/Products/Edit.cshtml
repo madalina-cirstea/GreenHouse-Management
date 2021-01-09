@@ -1,27 +1,40 @@
 ﻿
 @model GreenHouse_Management.Models.Product
 
-@using (Html.BeginForm(actionName: "Update", controllerName: "Products"))
+@using (Html.BeginForm("Update", "Products", new { @class = "form-horizontal", role = "form" }))
 {
     @Html.HttpMethodOverride(HttpVerbs.Put)
-
-    <!--camp ascuns pentru a retine id-ul obiectului-->
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(p => p.ProductId)
+    @Html.HiddenFor(p => p.ProductKey)
+    @Html.HiddenFor(p => p.CustomerId)
+
+    <h4>Update product</h4>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(p => p.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(p => p.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(p => p.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(p => p.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(p => p.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
     <br />
 
-    @Html.Label("Name", "Name:")
-    <br />
-    @Html.EditorFor(p => p.Name, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(p => p.Name, "", new { @class = "text-danger" })
-    <br />
-    <br />
-
-    @Html.Label("Status", "Status:")
-    <br />
-    @Html.EditorFor(p => p.Status, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(p => p.Status, "", new { @class = "text-danger" })
-    <br />
-    <br />
-
-    <button class="btn btn-primary" type="submit">Update</button>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="/products" class="btn btn-warning inline_button" type="submit">Back</a>
+            <input type="submit" class="btn btn-success inline_button" value="Update" />
+        </div>
+    </div>
 }

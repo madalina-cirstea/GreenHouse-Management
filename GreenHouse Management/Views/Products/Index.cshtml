@@ -1,32 +1,67 @@
-﻿@model GreenHouse_Management.Models.ViewModels.ProductsCustomersViewModel
+﻿@model GreenHouse_Management.Models.ViewModels.ProductViewModel
 
-@foreach (var item in Model.ProductsList)
+<h4>All products:</h4>
+<hr />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (Model.ProductsList.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No products found.</td>
+            </tr>
+        }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th>Product name</th>
+                    <th>Product key</th>
+                    <th>Details</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            foreach (var product in Model.ProductsList)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.ProductKey</td>
+
+                    <td>
+                        @using (Html.BeginForm(actionName: "Details", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = product.ProductId }))
+                        {
+                            <button class="btn btn-primary">Details</button>
+                        }
+                    </td>
+
+                    <td>
+                        @using (Html.BeginForm(actionName: "Edit", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = product.ProductId }))
+                        {
+                            <button class="btn btn-primary">Update</button>
+                        }
+                    </td>
+
+                    <td>
+                        @using (Html.BeginForm(actionName: "Delete", controllerName: "Products", routeValues: new { id = product.ProductId }))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="btn btn-primary" type="submit">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<a href="/" class="btn btn-warning inline_button" type="submit">Back Home</a>
+@if (!Model.AllowAddAction)
 {
-    <p>@item.Name</p>
-
-    <a href="/products/details/@item.ProductId" class="btn btn-primary" type="submit">Details</a>
     <br />
     <br />
 
-    using (Html.BeginForm(actionName: "Edit", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = item.ProductId }))
-    {
-        <button class="btn btn-primary">Update</button>
-    }
-    <br />
-
-    using (Html.BeginForm(actionName: "Delete", controllerName: "Products", routeValues: new { id = item.ProductId }))
-    {
-        @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-primary col-lg-1" type="submit">Delete</button>
-    }
-    <br />
-    <br />
-}
-
-<br />
-
-@if (Model.CustomersList.Count() == 0)
-{
     using (Html.BeginForm(actionName: "Add", controllerName: "Products", method: FormMethod.Get))
     {
         <button class="btn btn-primary" disabled>Add new product</button>
@@ -35,8 +70,5 @@
 }
 else
 {
-    using (Html.BeginForm(actionName: "Add", controllerName: "Products", method: FormMethod.Get))
-    {
-        <button class="btn btn-primary">Add new product</button>
-    }
+    <a href="/products/add" class="btn btn-primary" type="submit">Add new product</a>
 }

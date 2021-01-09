@@ -1,40 +1,40 @@
 ﻿@model GreenHouse_Management.Models.ViewModels.ProductCustomersViewModel
+
 @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(p => p.Product.ProductId)
-
-<h4>Add a new sold product with the associated buyer</h4>
-
+    <h4>Add new product with associated customer</h4>
     <hr />
 
     <div class="form-group">
-        @Html.LabelFor(p => p.Product.Name, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(p => p.Name, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(p => p.Product.Name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(p => p.Product.Name, "", new { @class = "text-danger" })
-        </div>
-
-        <br /><br /><br />
-
-        @Html.LabelFor(p => p.Product.Status, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(p => p.Product.Status, new { @class = "form-control" })
-            @Html.ValidationMessageFor(p => p.Product.Status, "", new { @class = "text-danger" })
-        </div>
-
-        <br /><br /><br />
-       
-        @Html.LabelFor(p => p.Product.CustomerId, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(p => p.Product.CustomerId, new SelectList(Model.CustomersList, "Value", "Text"), new { @class = "form - control" })
-
+            @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Name, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(p => p.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(p => p.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.CustomerId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(p => p.CustomerId, new SelectList(Model.CustomersList, "Value", "Text"), "Choose a customer", new { @class = "form - control" })
+            <br />
+            @Html.ValidationMessageFor(p => p.CustomerId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-success inline_button" value="Create" />
+            <a href="/products" class="btn btn-warning inline_button" type="submit">Back</a>
+            <input type="submit" class="btn btn-success inline_button" value="Add" />
         </div>
     </div>
 }

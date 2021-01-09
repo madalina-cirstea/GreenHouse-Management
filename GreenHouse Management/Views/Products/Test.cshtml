@@ -1,17 +1,15 @@
-﻿@*
-    @model List<GreenHouse_Management.Models.Customer>
+﻿
+    @model GreenHouse_Management.Models.Customer
 
-    @foreach (var item in Model)
-    {
-        <p>@item.CustomerId</p>
-        <p>@item.Name</p>
-        <p>@item.Email</p>
-        <p>@item.PhoneNumber</p>
-    }
-*@
+   
+        <p>@Model.CustomerId</p>
+        <p>@Model.Name</p>
+        <p>@Model.Email</p>
+        <p>@Model.PhoneNumber</p>
 
-@*
-    @model GreenHouse_Management.Models.Product
+
+
+    @*@model GreenHouse_Management.Models.Product
 
 
     <p>id: @Model.ProductId</p>
@@ -20,11 +18,13 @@
 
     <p>key: @Model.ProductKey</p>
 
-    <p>status: @Model.Status</p>
+    <p>description: @Model.Description</p>
 
-    <p>customerid: @Model.CustomerId</p>
-*@
+    <p>customerid: @Model.CustomerId</p>*@
 
+
+
+@*
 @model GreenHouse_Management.Models.ViewModels.ProductCustomersViewModel
 
 
@@ -34,9 +34,16 @@
 
 <p>key: @Model.Product.ProductKey</p>
 
-<p>status: @Model.Product.Status</p>
+<p>description: @Model.Product.Description</p>
 
 <p>customerid: @Model.Product.CustomerId</p>
+
+@foreach (var item in Model.CustomersList)
+{
+    <p>@item.Value</p>
+    <p>@item.Text</p>
+}
+    *@
 
 
 
