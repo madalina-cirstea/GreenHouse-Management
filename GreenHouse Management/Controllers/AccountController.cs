@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GreenHouse_Management.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace GreenHouse_Management.Controllers
 {
@@ -134,12 +136,36 @@ namespace GreenHouse_Management.Controllers
             }
         }
 
+        [NonAction]
+        public IEnumerable<SelectListItem> SelectAllRoles()
+        {
+            ApplicationDbContext ctx = new ApplicationDbContext();
+
+            var selectList = new List<SelectListItem>();
+
+            foreach (var role in ctx.Roles.ToList())
+            {
+                selectList.Add(new SelectListItem
+                {
+                    Value = role.Name,
+                    Text = role.Name
+                });
+            }
+
+            return selectList;
+        }
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel rvm = new RegisterViewModel
+            {
+                RolesList = SelectAllRoles()
+            };
+
+            return View(rvm);
         }
 
         //
@@ -155,20 +181,29 @@ namespace GreenHouse_Management.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, model.RoleName);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    ApplicationDbContext ctx = new ApplicationDbContext();
+                    RegisteredUser registeredUser = new RegisteredUser
+                    {
+                        Email = model.Email,
+                        RoleName = model.RoleName,
+                        RegistrationCode = model.RegistrationCode
+                    };
+                    if (TryValidateModel(registeredUser))
+                    { 
+                        ctx.RegisteredUsers.Add(registeredUser);
+                        ctx.SaveChanges();
+                    }
+                       
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
+            model.RolesList = SelectAllRoles();
             return View(model);
         }
 
