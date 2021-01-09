@@ -14,7 +14,7 @@ namespace GreenHouse_Management.Controllers
         private readonly ApplicationDbContext ctx = new ApplicationDbContext();
 
         [NonAction]
-        public IEnumerable<SelectListItem> GetAllCustomers()
+        public IEnumerable<SelectListItem> SelectAllCustomers()
         {
             var selectList = new List<SelectListItem>();
 
@@ -34,15 +34,19 @@ namespace GreenHouse_Management.Controllers
         public ActionResult Index()
         {
             List<Product> products = ctx.Products.ToList();
-            List<Customer> customers = ctx.Customers.ToList();
 
-            ProductsCustomersViewModel pc = new ProductsCustomersViewModel
+            bool allowAddAction = true;
+            List<Customer> customers = ctx.Customers.ToList();
+            if (customers.Count() == 0) 
+                allowAddAction = false;
+
+            ProductViewModel pvm = new ProductViewModel
             {
                 ProductsList = products,
-                CustomersList = customers
+                AllowAddAction = allowAddAction
             };
 
-            return View(pc);
+            return View(pvm);
         }
 
         // GET: /Products/Add
@@ -50,8 +54,7 @@ namespace GreenHouse_Management.Controllers
         {
             ProductCustomersViewModel pc = new ProductCustomersViewModel
             {
-                Product = new Product(),
-                CustomersList = GetAllCustomers()
+                CustomersList = SelectAllCustomers()
             };
 
             return View(pc);
@@ -61,25 +64,44 @@ namespace GreenHouse_Management.Controllers
         [HttpPost]
         public ActionResult Create(ProductCustomersViewModel pc)
         {
-
-            // verifica daca s-a realizat corect fenomenul de MODEL BINDING
-            // - daca nu s-au incalcat in timpul procesului de binding reguli de validare 
-            if (ModelState.IsValid)
+            try
             {
-                Product p = new Product(pc.Product);
+                if (ModelState.IsValid)
+                {
+                    int customerId = Int32.Parse(pc.CustomerId);
+                    Customer customer = ctx.Customers.Find(customerId);
 
-                // generate ProductKey using ProductId and CustomerId and a random alphabetical character
-                Random rnd = new Random();
-                char randomChar = (char)rnd.Next('a', 'z');
-                string key = randomChar + p.ProductId.ToString() + "-" + p.CustomerId.ToString();
-                p.ProductKey = key;
+                    Product p = new Product
+                    {
+                        CustomerId = customerId,
+                        Customer = customer,
+                        Name = pc.Name,
+                        Description = pc.Description,
+                    };
 
-                ctx.Products.Add(p);
-                ctx.SaveChanges();
-                return RedirectToAction("Index");
+                    // generate ProductKey using ProductId and CustomerId and a random alphabetical character a-z
+                    Random rnd = new Random();
+                    char randomChar = (char)rnd.Next('a', 'z');
+                    string key = randomChar + p.ProductId.ToString() + "-" + p.CustomerId.ToString();
+                    p.ProductKey = key;
+
+                    if (TryValidateModel(p))
+                    {
+                        ctx.Products.Add(p);
+                        ctx.SaveChanges();
+                    }
+
+                    return RedirectToAction("Index");
+                }
+
+                pc.CustomersList = SelectAllCustomers();
+                return View("Add", pc);
             }
-
-            return View("Add", pc);
+            catch (Exception e)
+            {
+                pc.CustomersList = SelectAllCustomers();
+                return View("Add", pc);
+            }
         }
 
         // GET: /Products/Details/id
@@ -116,18 +138,28 @@ namespace GreenHouse_Management.Controllers
         [HttpPut]
         public ActionResult Update(Product p)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Product product = ctx.Products.Single(a => a.ProductId == p.ProductId);
-                if (TryUpdateModel(product))
+                p.Customer = ctx.Customers.Find(p.CustomerId);
+                
+                if (ModelState.IsValid)
                 {
-                    product.Name = p.Name;
-                    product.Status = p.Status;
-                    ctx.SaveChanges();
+                    Product product = ctx.Products.Single(a => a.ProductId == p.ProductId);
+                    if (TryUpdateModel(product))
+                    {
+                        product.Name = p.Name;
+                        product.Description = p.Description;
+                        ctx.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+
+                return View("Edit", p);
             }
-            return View("Edit", p);
+            catch (Exception e)
+            {
+                return View("Edit", p);
+            }
         }
 
         // DELETE: /Products/Delete/id
