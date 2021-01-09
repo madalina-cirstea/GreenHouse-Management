@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace GreenHouse_Management.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext ctx = new ApplicationDbContext();

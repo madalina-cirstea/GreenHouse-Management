@@ -8,7 +8,7 @@ using GreenHouse_Management.Models.ViewModels;
 
 namespace GreenHouse_Management.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext ctx = new ApplicationDbContext();
