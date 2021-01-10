@@ -1,0 +1,41 @@
+﻿@model GreenHouse_Management.Models.Greenhouse
+
+@using (Html.BeginForm("Register", "Greenhouses", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(g => g.GreenhouseId)
+
+    <h4>First, register your greenhouse</h4>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(g => g.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(g => g.Name, new { placeholder = "eg. Your greenhouse's name", @class = "form-control" })
+            @Html.ValidationMessageFor(g => g.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(g => g.Location, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(g => g.Location, new { placeholder = "eg. Your greenhouse's location", @class = "form-control" })
+            @Html.ValidationMessageFor(g => g.Location, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(g => g.HardinessZone, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(g => g.HardinessZone, new { placeholder = "eg. zone 1-13", @class = "form-control" })
+            <br />
+            @Html.ValidationMessageFor(g => g.HardinessZone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-success inline_button" value="Register" />
+        </div>
+    </div>
+}
