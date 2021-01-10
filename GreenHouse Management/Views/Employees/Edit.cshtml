@@ -1,0 +1,40 @@
+﻿
+@model GreenHouse_Management.Models.Employee
+
+@using (Html.BeginForm("Update", "Employees", new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(c => c.EmployeeId)
+    @Html.HiddenFor(c => c.EIN)
+    @Html.HiddenFor(c => c.ShopId)
+
+    <h4>Update employee</h4>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(c => c.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(c => c.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(c => c.Address, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(c => c.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(c => c.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="/employees" class="btn btn-warning inline_button" type="submit">Back</a>
+            <input type="submit" class="btn btn-success inline_button" value="Update" />
+        </div>
+    </div>
+}

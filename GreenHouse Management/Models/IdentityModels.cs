@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -18,16 +19,20 @@ namespace GreenHouse_Management.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        //public virtual ICollection<Shop> Shops { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer<ApplicationDbContext>(new Initp());
         }
 
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
+        public DbSet<Shop> Shops { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Greenhouse> Greenhouses { get; set; }
