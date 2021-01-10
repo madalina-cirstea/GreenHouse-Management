@@ -9,6 +9,38 @@ namespace GreenHouse_Management.Models.Validations
 {
     public class RegistrationCodeValidator : ValidationAttribute
     {
+        private bool CheckAdminKeyFromat(string adminKey)
+        {
+            Regex rgx = new Regex(@"^[A-Z]{2}\d{4}-[a-z]{1}\d{4}$");
+            return rgx.IsMatch(adminKey);
+        }
+
+        private bool CheckAdminKeyValidity(string adminKey)
+        {
+            string BIN = adminKey.Substring(0, 6);
+            string EIN = adminKey.Substring(7, 5);
+
+            ApplicationDbContext ctx = new ApplicationDbContext();
+            Employee emp = ctx.Employees.FirstOrDefault(e => e.EIN.Equals(EIN));
+            if (emp != null)
+            {
+                Shop shop = ctx.Shops.FirstOrDefault(s => s.ShopId == emp.ShopId);
+                if (shop != null)
+                {
+                    if (shop.BIN.Equals(BIN))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool CheckAdminKeyUniqueness(string adminKey)
+        {
+            ApplicationDbContext ctx = new ApplicationDbContext();
+            return ctx.RegisteredUsers.FirstOrDefault(user => user.RegistrationCode == adminKey) == null;
+        }
+
         private bool CheckProductKeyFromat(string productKey)
         {
             Regex rgx = new Regex(@"^[a-z]\d+-\d+$");
@@ -45,6 +77,15 @@ namespace GreenHouse_Management.Models.Validations
             }
             else //if (register.RoleName.Equals("Admin"))
             {
+                if (!CheckAdminKeyFromat(register.RegistrationCode))
+                    return new ValidationResult("Invalid admin key code format!");
+
+                if (!CheckAdminKeyValidity(register.RegistrationCode))
+                    return new ValidationResult("Invalid admin key!");
+
+                if (!CheckAdminKeyUniqueness(register.RegistrationCode))
+                    return new ValidationResult("Another admin was already registered with the same identification key!");
+
                 return ValidationResult.Success;
             }
         }
