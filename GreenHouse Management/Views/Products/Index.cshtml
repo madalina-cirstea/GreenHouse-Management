@@ -17,6 +17,7 @@
                 <tr class="danger">
                     <th>Product name</th>
                     <th>Product key</th>
+                    <th>Description</th>
                     <th>Details</th>
                     <th>Update</th>
                     <th>Delete</th>
@@ -25,32 +26,34 @@
 
             foreach (var product in Model.ProductsList)
             {
-                <tr>
-                    <td>@product.Name</td>
-                    <td>@product.ProductKey</td>
+    <tr>
+        <td>@product.Name</td>
+        <td>@product.ProductKey</td>
+        <td>@product.Description</td>
 
-                    <td>
-                        @using (Html.BeginForm(actionName: "Details", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = product.ProductId }))
-                        {
-                            <button class="btn btn-primary">Details</button>
-                        }
-                    </td>
 
-                    <td>
-                        @using (Html.BeginForm(actionName: "Edit", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = product.ProductId }))
-                        {
-                            <button class="btn btn-primary">Update</button>
-                        }
-                    </td>
+        <td>
+            @using (Html.BeginForm(actionName: "Details", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = product.ProductId }))
+            {
+                <button class="btn btn-primary">Details</button>
+            }
+        </td>
 
-                    <td>
-                        @using (Html.BeginForm(actionName: "Delete", controllerName: "Products", routeValues: new { id = product.ProductId }))
-                        {
-                            @Html.HttpMethodOverride(HttpVerbs.Delete)
-                            <button class="btn btn-primary" type="submit">Delete</button>
-                        }
-                    </td>
-                </tr>
+        <td>
+            @using (Html.BeginForm(actionName: "Edit", controllerName: "Products", method: FormMethod.Get, routeValues: new { id = product.ProductId }))
+            {
+                <button class="btn btn-primary">Update</button>
+            }
+        </td>
+
+        <td>
+            @using (Html.BeginForm(actionName: "Delete", controllerName: "Products", routeValues: new { id = product.ProductId }))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-primary" type="submit">Delete</button>
+            }
+        </td>
+    </tr>
             }
         }
     </table>

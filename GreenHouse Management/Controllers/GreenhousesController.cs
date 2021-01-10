@@ -44,17 +44,14 @@ namespace GreenHouse_Management.Controllers
             {
                 string userId = User.Identity.GetUserId();
                 ApplicationUser user = ctx.Users.Find(userId);
+
                 greenhouse.User = user;
                 greenhouse.ProductKey = ctx.RegisteredUsers.FirstOrDefault(u => u.Email.Equals(user.Email)).RegistrationCode;
                 greenhouse.RegistrationDate = DateTime.Now;
 
-                //if (ModelState.IsValid)
-                //{
-                    ctx.Greenhouses.Add(greenhouse);
-                    ctx.SaveChanges();
-                    return RedirectToAction("Index");
-                //}
-                //return View("Register", greenhouse);
+                ctx.Greenhouses.Add(greenhouse);
+                ctx.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {

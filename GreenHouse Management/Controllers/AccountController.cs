@@ -85,7 +85,7 @@ namespace GreenHouse_Management.Controllers
                     string roleName = ctx.RegisteredUsers.FirstOrDefault(u => u.Email.Equals(model.Email)).RoleName;
                     if (roleName.Equals("Admin"))
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("PersonalProfile", "Employees");
                     }
                     else //if (roleName.Equals("Customer"))
                     {

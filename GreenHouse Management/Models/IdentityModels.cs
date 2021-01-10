@@ -7,7 +7,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GreenHouse_Management.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
         public virtual Greenhouse Greenhouse { get; set; }
@@ -19,14 +18,13 @@ namespace GreenHouse_Management.Models
             // Add custom user claims here
             return userIdentity;
         }
-
-        //public virtual ICollection<Shop> Shops { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {
+            //Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
             Database.SetInitializer<ApplicationDbContext>(new Initp());
         }
 
