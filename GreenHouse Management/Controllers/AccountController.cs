@@ -81,7 +81,16 @@ namespace GreenHouse_Management.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    ApplicationDbContext ctx = new ApplicationDbContext();
+                    string roleName = ctx.RegisteredUsers.FirstOrDefault(u => u.Email.Equals(model.Email)).RoleName;
+                    if (roleName.Equals("Admin"))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else //if (roleName.Equals("Customer"))
+                    {
+                        return RedirectToAction("Index", "Greenhouses");
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -196,8 +205,15 @@ namespace GreenHouse_Management.Controllers
                         ctx.RegisteredUsers.Add(registeredUser);
                         ctx.SaveChanges();
                     }
-                       
-                    return RedirectToAction("Index", "Home");
+
+                    if (model.RoleName.Equals("Admin"))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else //if (model.RoleName.Equals("Customer"))
+                    {
+                        return RedirectToAction("Index", "Greenhouses");
+                    }
                 }
                 AddErrors(result);
             }
