@@ -27,16 +27,16 @@ namespace GreenHouse_Management
                 role.Name = "Admin";
                 roleManager.Create(role);
 
-                // create default admin
-                var user = new ApplicationUser();
-                user.UserName = "admin@admin.com";
-                user.Email = "admin@admin.com";
+                //// create default admin
+                //var user = new ApplicationUser();
+                //user.UserName = "admin@admin.com";
+                //user.Email = "admin@admin.com";
 
-                var adminCreated = userManager.Create(user, "Admin2021!");
-                if (adminCreated.Succeeded)
-                {
-                    userManager.AddToRole(user.Id, "Admin");
-                }
+                //var adminCreated = userManager.Create(user, "Admin2021!");
+                //if (adminCreated.Succeeded)
+                //{
+                //    userManager.AddToRole(user.Id, "Admin");
+                //}
             }
 
             if (!roleManager.RoleExists("Customer"))
@@ -45,16 +45,16 @@ namespace GreenHouse_Management
                 role.Name = "Customer";
                 roleManager.Create(role);
 
-                // create default customer
-                var user = new ApplicationUser();
-                user.UserName = "customer@customer.com";
-                user.Email = "customer@customer.com";
+                //// create default customer
+                //var user = new ApplicationUser();
+                //user.UserName = "customer@customer.com";
+                //user.Email = "customer@customer.com";
 
-                var adminCreated = userManager.Create(user, "Customer2021!");
-                if (adminCreated.Succeeded)
-                {
-                    userManager.AddToRole(user.Id, "Customer");
-                }
+                //var adminCreated = userManager.Create(user, "Customer2021!");
+                //if (adminCreated.Succeeded)
+                //{
+                //    userManager.AddToRole(user.Id, "Customer");
+                //}
             }
         }
     }
