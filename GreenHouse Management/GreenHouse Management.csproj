@@ -191,6 +191,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Validations\RegistrationCodeValidator.cs" />
+    <Compile Include="Models\ViewModels\EmployeeProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\EmployeeShopsViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductCustomersViewModel.cs" />
@@ -203,6 +204,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\employee_profile_img.png" />
+    <Content Include="Content\Images\shop_img.png" />
+    <Content Include="Content\Style\Profile.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -272,6 +276,7 @@
     <Content Include="Views\Employees\Details.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\PersonalProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

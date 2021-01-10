@@ -1,0 +1,31 @@
+﻿@model GreenHouse_Management.Models.ViewModels.EmployeeProfileViewModel
+
+<link rel="stylesheet" href="~/Content/Style/Profile.css?id=22" />
+
+<body>
+    <br /><br />
+
+    <div class="panel panel-default inline_button cardSize">
+        <div class="panel-heading imagineClassPanel1">
+        </div>
+        <div class="panel-body panelCard">
+            <h3>Employee: @Model.Employee.Name</h3>
+            <br />
+            <p><b>EIN: </b>@Model.Employee.EIN</p>
+            <p><b>Address: </b>@Model.Employee.Address</p>
+        </div>
+    </div>
+
+    <div class="panel panel-default inline_button cardSize">
+        <div class="panel-heading imagineClassPanel2">
+        </div>
+        <div class="panel-body panelCard">
+            <h3>Shop: @Model.Shop.Name</h3>
+            <br />
+            <p><b>BIN: </b>@Model.Shop.BIN</p>
+            <p><b>Address: </b>@Model.Shop.Address</p>
+        </div>
+    </div>
+
+</body>
+

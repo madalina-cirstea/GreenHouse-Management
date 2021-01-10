@@ -19,7 +19,7 @@
                 </button>
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Greenhouse Shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Greenhouse Shop", "PersonalProfile", "Employees", new { area = "" }, new { @class = "navbar-brand" })
                 }
                 else if (User.IsInRole("Customer"))
                 {
@@ -34,6 +34,7 @@
                 <ul class="nav navbar-nav">
                     @if (User.IsInRole("Admin"))
                     {
+                        <li>@Html.ActionLink("Profile", "PersonalProfile", "Employees")</li>
                         <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
                         <li>@Html.ActionLink("Products", "Index", "Products")</li>
                         <li>@Html.ActionLink("Employees", "Index", "Employees")</li>

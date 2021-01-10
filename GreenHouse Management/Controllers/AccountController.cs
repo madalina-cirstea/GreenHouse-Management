@@ -196,6 +196,7 @@ namespace GreenHouse_Management.Controllers
                     ApplicationDbContext ctx = new ApplicationDbContext();
                     RegisteredUser registeredUser = new RegisteredUser
                     {
+                        UserId = user.Id,
                         Email = model.Email,
                         RoleName = model.RoleName,
                         RegistrationCode = model.RegistrationCode
@@ -208,7 +209,7 @@ namespace GreenHouse_Management.Controllers
 
                     if (model.RoleName.Equals("Admin"))
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("PersonalProfile", "Employees");
                     }
                     else //if (model.RoleName.Equals("Customer"))
                     {

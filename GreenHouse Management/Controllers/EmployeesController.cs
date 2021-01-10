@@ -1,5 +1,6 @@
 ﻿using GreenHouse_Management.Models;
 using GreenHouse_Management.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -158,6 +159,34 @@ namespace GreenHouse_Management.Controllers
                 return HttpNotFound("Couldn't find the employee with id " + id.ToString());
             }
             return HttpNotFound("Missing employee id parameter!");
+        }
+
+        // GET: /Employees/PersonalProfile
+        public ActionResult PersonalProfile()
+        {
+            string userId = User.Identity.GetUserId();
+            RegisteredUser registerdUser = ctx.RegisteredUsers.FirstOrDefault(u => u.UserId.Equals(userId));
+            if (registerdUser != null)
+            {
+                string BIN = registerdUser.RegistrationCode.Substring(0, 6);
+                string EIN = registerdUser.RegistrationCode.Substring(7, 5);
+
+                Employee emp = ctx.Employees.FirstOrDefault(e => e.EIN.Equals(EIN));
+                if (emp != null)
+                {
+                    Shop shop = ctx.Shops.FirstOrDefault(s => s.BIN.Equals(BIN));
+                    if (shop != null)
+                    {
+                        EmployeeProfileViewModel profile = new EmployeeProfileViewModel
+                        {
+                            Employee = emp,
+                            Shop = shop
+                        };
+                        return View(profile);
+                    }
+                }
+            }
+            return HttpNotFound("Couldn't find employee profile!");
         }
     }
 }

@@ -1,0 +1,35 @@
+﻿.imagineClassPanel1 {
+    background-image: url("../Images/employee_profile_img.png") !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 30vh;
+    width: 356px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.imagineClassPanel2 {
+    background-image: url("../Images/shop_img.png") !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+    height: 30vh;
+    width: 356px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cardSize {
+    width: 358px;
+    background-color: white;
+}
+
+.panelCard {
+    background-color: #c0e6f0;
+}
+
+.inline_button {
+    float: left;
+    margin-right: 1vw;
+}
