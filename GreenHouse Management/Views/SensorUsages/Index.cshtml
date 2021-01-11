@@ -1,0 +1,54 @@
+﻿@model List<GreenHouse_Management.Models.SensorUsage>
+
+<h4>All sensor usages:</h4>
+<hr />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No sensor usage found.</td>
+            </tr>
+        }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th>Recorded type</th>
+                    <th>Measurement unit</th>
+                    <th>Description</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            foreach (var sensorUsage in Model)
+            {
+                <tr>
+                    <td>@sensorUsage.RecordedType</td>
+                    <td>@sensorUsage.MeasurementUnit</td>
+                    <td>@sensorUsage.Description</td>
+
+                    <td>
+                        @using (Html.BeginForm(actionName: "Edit", controllerName: "SensorUsages", method: FormMethod.Get, routeValues: new { id = sensorUsage.SensorUsageId }))
+                        {
+                            <button class="btn btn-primary">Update</button>
+                        }
+                    </td>
+
+                    <td>
+                        @using (Html.BeginForm(actionName: "Delete", controllerName: "SensorUsages", routeValues: new { id = sensorUsage.SensorUsageId }))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="btn btn-primary" type="submit">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<a href="/" class="btn btn-warning inline_button" type="submit">Back Home</a>
+<a href="/SensorUsages/Add" class="btn btn-primary" type="submit">Add new sensor usage</a>

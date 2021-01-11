@@ -1,0 +1,45 @@
+﻿@model GreenHouse_Management.Models.SensorUsage
+
+@using (Html.BeginForm("Update", "SensorUsages", new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(c => c.SensorUsageId)
+
+    <h4>Update customer</h4>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.RecordedType, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(c => c.RecordedType, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(c => c.RecordedType, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(c => c.MeasurementUnit, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(c => c.MeasurementUnit, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(c => c.MeasurementUnit, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(c => c.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(c => c.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(c => c.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="/SensorUsages" class="btn btn-warning inline_button" type="submit">Back</a>
+            <input type="submit" class="btn btn-success inline_button" value="Update" />
+        </div>
+    </div>
+}

@@ -1,34 +1,53 @@
-﻿
-@model GreenHouse_Management.Models.Sensor
+﻿@model GreenHouse_Management.Models.Sensor
 
-@using (Html.BeginForm(actionName: "Update", controllerName: "Sensors"))
+@using (Html.BeginForm("Update", "Sensors", new { @class = "form-horizontal", role = "form" }))
 {
     @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(c => c.SensorId)
 
-    <!--camp ascuns pentru a retine id-ul obiectului-->
-    @Html.HiddenFor(s => s.SensorId)
+    <h4>Update customer</h4>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(c => c.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(c => c.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(c => c.Model, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(c => c.Model, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(c => c.Model, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(c => c.Value, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(c => c.Value, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(c => c.Value, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
+        @Html.LabelFor(c => c.OperatingState, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(c => c.OperatingState, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(c => c.OperatingState, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
     <br />
 
-    @Html.Label("Name", "Name:")
-    <br />
-    @Html.EditorFor(s => s.Name, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(s => s.Name, "", new { @class = "text-danger" })
-    <br />
-    <br />
-
-    @Html.Label("Model", "Model:")
-    <br />
-    @Html.EditorFor(s => s.Model, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(s => s.Model, "", new { @class = "text-danger" })
-    <br />
-    <br />
-
-    @Html.Label("OperatingState", "OperatingState:")
-    <br />
-    @Html.EditorFor(s => s.OperatingState, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.ValidationMessageFor(s => s.OperatingState, "", new { @class = "text-danger" })
-    <br />
-    <br />
-
-    <button class="btn btn-primary" type="submit">Update</button>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="/sensors" class="btn btn-warning inline_button" type="submit">Back</a>
+            <input type="submit" class="btn btn-success inline_button" value="Update" />
+        </div>
+    </div>
 }

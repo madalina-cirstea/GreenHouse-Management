@@ -6,7 +6,6 @@
     @Html.HiddenFor(s => s.SensorId)
 
     <h4>Add a new sensor</h4>
-
     <hr />
 
     <div class="form-group">
@@ -26,6 +25,14 @@
 
         <br /><br /><br />
 
+        @Html.LabelFor(s => s.Value, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(s => s.Value, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Value, "", new { @class = "text-danger" })
+        </div>
+
+        <br /><br /><br />
+
         @Html.LabelFor(s => s.OperatingState, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(s => s.OperatingState, new { @class = "form-control" })
@@ -35,7 +42,8 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-success inline_button" value="Create" />
+            <a href="/sensors" class="btn btn-warning inline_button" type="submit">Back</a>
+            <input type="submit" class="btn btn-success inline_button" value="Add" />
         </div>
     </div>
 }

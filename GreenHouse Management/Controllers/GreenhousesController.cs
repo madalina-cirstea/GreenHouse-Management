@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace GreenHouse_Management.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class GreenhousesController : Controller
     {
         private readonly ApplicationDbContext ctx = new ApplicationDbContext();

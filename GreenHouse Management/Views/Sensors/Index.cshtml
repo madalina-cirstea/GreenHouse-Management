@@ -1,28 +1,78 @@
 ﻿@model List<GreenHouse_Management.Models.Sensor>
 
-@foreach (var item in Model)
-{
-    <p>@item.Name</p>
+<h4>All sensors:</h4>
+<hr />
 
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No sensors found.</td>
+            </tr>
+        }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th>Sensor name</th>
+                    <th>Model</th>
+                    <th>Value</th>
+                    <th>OperatingState</th>
+                    <th>Recorded types</th>
+                    <th>Add usages</th>
+                    <th>Remove usages</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
 
-    using (Html.BeginForm(actionName: "Edit", controllerName: "Sensors", method: FormMethod.Get, routeValues: new { id = item.SensorId }))
-    {
-        <button class="btn btn-primary">Update</button>
-    }
-    <br />
+            foreach (var sensor in Model)
+            {
+                <tr>
+                    <td>@sensor.Name</td>
+                    <td>@sensor.Model</td>
+                    <td>@sensor.Value</td>
+                    <td>@sensor.OperatingState</td>
 
-    using (Html.BeginForm(actionName: "Delete", controllerName: "Sensors", routeValues: new { id = item.SensorId }))
-    {
-        @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-primary col-lg-1" type="submit">Delete</button>
-    }
-    <br />
-    <br />
-}
+                    <td>
+                        <ul>
+                            @foreach (var usage in sensor.SensorUsages)
+                            {
+                                <li>
+                                    @usage.RecordedType, @usage.MeasurementUnit 
+                                </li>
+                            }
+                        </ul>
+                    </td>
 
-<br />
+                    <td>
+                        @Html.ActionLink("Add", "AddUsages", new { sensorId = sensor.SensorId })
+                    </td>
 
-@using (Html.BeginForm(actionName: "Add", controllerName: "Sensors", method: FormMethod.Get))
-{
-    <button class="btn btn-primary">Add new sensor</button>
-}
+                    <td>
+                        @Html.ActionLink("Remove", "RemoveUsages", new { sensorId = sensor.SensorId })
+                    </td>
+
+                    <td>
+                        @using (Html.BeginForm(actionName: "Edit", controllerName: "Sensors", method: FormMethod.Get, routeValues: new { id = sensor.SensorId }))
+                        {
+                            <button class="btn btn-primary">Update</button>
+                        }
+                    </td>
+
+                    <td>
+                        @using (Html.BeginForm(actionName: "Delete", controllerName: "Sensors", routeValues: new { id = sensor.SensorId }))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="btn btn-primary" type="submit">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<a href="/" class="btn btn-warning inline_button" type="submit">Back Home</a>
+<a href="/sensors/add" class="btn btn-primary" type="submit">Add new sensor</a>

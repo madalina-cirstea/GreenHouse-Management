@@ -176,6 +176,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SensorUsagesController.cs" />
     <Compile Include="Controllers\SensorsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -189,6 +190,7 @@
     <Compile Include="Models\Sensor.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SensorUsage.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Validations\RegistrationCodeValidator.cs" />
     <Compile Include="Models\ViewModels\EmployeeProfileViewModel.cs" />
@@ -280,6 +282,11 @@
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\Employees\PersonalProfile.cshtml" />
+    <Content Include="Views\SensorUsages\Add.cshtml" />
+    <Content Include="Views\SensorUsages\Edit.cshtml" />
+    <Content Include="Views\SensorUsages\Index.cshtml" />
+    <Content Include="Views\Sensors\AddUsages.cshtml" />
+    <Content Include="Views\Sensors\RemoveUsages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

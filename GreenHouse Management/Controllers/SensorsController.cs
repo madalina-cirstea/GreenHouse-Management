@@ -8,6 +8,7 @@ using System.Web.Mvc;
 namespace GreenHouse_Management.Controllers
 {
     [AllowAnonymous]
+    //[Authorize(Roles = "Customer")]
     public class SensorsController : Controller
     {
         private readonly ApplicationDbContext ctx = new ApplicationDbContext();
@@ -30,16 +31,99 @@ namespace GreenHouse_Management.Controllers
         [HttpPost]
         public ActionResult Create(Sensor s)
         {
-            // verifica daca s-a realizat corect fenomenul de MODEL BINDING
-            // - daca nu s-au incalcat in timpul procesului de binding reguli de validare 
-            if (ModelState.IsValid)
+            try
             {
-                ctx.Sensors.Add(s);
+                if (ModelState.IsValid)
+                {
+                    ctx.Sensors.Add(s);
+                    ctx.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View("Add", s);
+            }
+            catch (Exception e)
+            {
+                return View("Add", s);
+            }
+        }
+
+        // GET: /Sensors/AddUsages/sensorId
+        public ActionResult AddUsages(int? sensorId)
+        {
+            if (sensorId.HasValue)
+            {
+                ViewBag.sensorId = sensorId;
+                List<SensorUsage> sensorUsages = ctx.SensorUsages.ToList();
+                return View(sensorUsages);
+            }
+            return HttpNotFound("Missing sensor id parameter!");
+        }
+
+        // GET: /Sensors/AddUsage/sensorId&usageId
+        public ActionResult AddUsage(int? sensorId, int? usageId)
+        {
+            if (sensorId.HasValue && usageId.HasValue)
+            {
+                Sensor sensor = ctx.Sensors.Find(sensorId);
+                if (sensor == null)
+                    return HttpNotFound("Couldn't find the sensor with id " + sensorId.ToString());
+
+                SensorUsage usage = ctx.SensorUsages.Find(usageId);
+                if (usage == null)
+                    return HttpNotFound("Couldn't find the usage with id " + usageId.ToString());
+
+                sensor.SensorUsages.Add(usage);
                 ctx.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View("Add", s);
+            if (!usageId.HasValue)
+                return HttpNotFound("Missing usage id parameter!");
+
+            if (!sensorId.HasValue)
+                return HttpNotFound("Missing sensor id parameter!");
+
+            return HttpNotFound("Missing parameters!");
+        }
+
+        // GET: /Sensors/RemoveUsages/sensorId
+        public ActionResult RemoveUsages(int? sensorId)
+        {
+            if (sensorId.HasValue)
+            {
+                ViewBag.sensorId = sensorId;
+                List<SensorUsage> sensorUsages = ctx.SensorUsages.ToList();
+                return View(sensorUsages);
+            }
+            return HttpNotFound("Missing sensor id parameter!");
+        }
+
+        // GET: /Sensors/RemoveUsage/sensorId&usageId
+        public ActionResult RemoveUsage(int? sensorId, int? usageId)
+        {
+            if (sensorId.HasValue && usageId.HasValue)
+            {
+                Sensor sensor = ctx.Sensors.Find(sensorId);
+                if (sensor == null)
+                    return HttpNotFound("Couldn't find the sensor with id " + sensorId.ToString());
+
+                SensorUsage usage = ctx.SensorUsages.Find(usageId);
+                if (usage == null)
+                    return HttpNotFound("Couldn't find the usage with id " + usageId.ToString());
+
+                sensor.SensorUsages.Remove(usage);
+                ctx.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            if (!usageId.HasValue)
+                return HttpNotFound("Missing usage id parameter!");
+
+            if (!sensorId.HasValue)
+                return HttpNotFound("Missing sensor id parameter!");
+
+            return HttpNotFound("Missing parameters!");
         }
 
         // GET: /Sensors/Edit/id
@@ -61,19 +145,27 @@ namespace GreenHouse_Management.Controllers
         [HttpPut]
         public ActionResult Update(Sensor s)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Sensor sensor = ctx.Sensors.Single(a => a.SensorId == s.SensorId);
-                if (TryUpdateModel(sensor))
+                if (ModelState.IsValid)
                 {
-                    sensor.Name = s.Name;
-                    sensor.Model = s.Model;
-                    sensor.OperatingState = s.OperatingState;
-                    ctx.SaveChanges();
+                    Sensor sensor = ctx.Sensors.Single(a => a.SensorId == s.SensorId);
+                    if (TryUpdateModel(sensor))
+                    {
+                        sensor.Name = s.Name;
+                        sensor.Model = s.Model;
+                        sensor.Value = s.Value;
+                        sensor.OperatingState = s.OperatingState;
+                        ctx.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+                return View("Edit", s);
             }
-            return View("Edit", s);
+            catch (Exception e)
+            {
+                return View("Edit", s);
+            }
         }
 
         // DELETE: /Sensors/Delete/id

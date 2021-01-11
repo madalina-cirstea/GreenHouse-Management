@@ -34,6 +34,18 @@ namespace GreenHouse_Management.Models
             ctx.Employees.Add(emp1);
             ctx.Employees.Add(emp2);
 
+            SensorUsage usage0 = new SensorUsage { RecordedType = "Temperature", MeasurementUnit = "°F", Description = "measurement range between -4°F and 95°F" };
+            ctx.SensorUsages.Add(usage0);
+
+            SensorUsage usage1 = new SensorUsage { RecordedType = "Temperature", MeasurementUnit = "°C", Description = "measurement range between -20°C and +35°C" };
+            ctx.SensorUsages.Add(usage1);
+
+            SensorUsage usage2 = new SensorUsage { RecordedType = "Humidity", MeasurementUnit = "mg/l", Description = "measurement range 0.2 - 5 mg/l" };
+            ctx.SensorUsages.Add(usage2);
+
+            SensorUsage usage3 = new SensorUsage { RecordedType = "Soil moisture", MeasurementUnit = "Volumetric (%)", Description = "measurement range 0 - 10" };
+            ctx.SensorUsages.Add(usage3);
+
             ctx.SaveChanges();
             base.Seed(ctx);
         }

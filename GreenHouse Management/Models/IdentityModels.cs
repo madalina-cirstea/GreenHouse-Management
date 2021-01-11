@@ -35,6 +35,7 @@ namespace GreenHouse_Management.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Greenhouse> Greenhouses { get; set; }
         public DbSet<Sensor> Sensors { get; set; }
+        public DbSet<SensorUsage> SensorUsages { get; set; }
 
         public static ApplicationDbContext Create()
         {
