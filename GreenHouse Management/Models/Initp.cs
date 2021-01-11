@@ -6,7 +6,7 @@ using System.Web;
 
 namespace GreenHouse_Management.Models
 {
-    public class Initp : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    public class Initp : DropCreateDatabaseAlways<ApplicationDbContext>
     { 
         protected override void Seed(ApplicationDbContext ctx)
         {

@@ -42,8 +42,7 @@
                     else if (User.IsInRole("Customer"))
                     {
                         <li>@Html.ActionLink("Home", "Index", "Greenhouses")</li>
-                        <li>@Html.ActionLink("Sensors", "About", "Home")</li>
-                        <li>@Html.ActionLink("Switches", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Sensors", "Sensors", "Greenhouses")</li>
                     }
                     else
                     {

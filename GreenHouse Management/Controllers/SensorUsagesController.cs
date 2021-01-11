@@ -7,8 +7,7 @@ using System.Web.Mvc;
 
 namespace GreenHouse_Management.Controllers
 {
-    [AllowAnonymous]
-    //[Authorize(Roles = "Customer")]
+    [Authorize(Roles = "Customer")]
     public class SensorUsagesController : Controller
     {
         private readonly ApplicationDbContext ctx = new ApplicationDbContext();

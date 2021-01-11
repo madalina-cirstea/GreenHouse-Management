@@ -7,8 +7,7 @@ using System.Web.Mvc;
 
 namespace GreenHouse_Management.Controllers
 {
-    [AllowAnonymous]
-    //[Authorize(Roles = "Customer")]
+    [Authorize(Roles = "Customer")]
     public class SensorsController : Controller
     {
         private readonly ApplicationDbContext ctx = new ApplicationDbContext();
@@ -94,7 +93,6 @@ namespace GreenHouse_Management.Controllers
 
             if (!usageId.HasValue)
                 return HttpNotFound("Missing usage id parameter!");
-
 
             return HttpNotFound("Missing parameters!");
         }

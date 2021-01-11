@@ -30,10 +30,7 @@
                     <td>@usage.Description</td>
 
                     <td>
-                        @using (Html.BeginForm(actionName: "AddUsage", controllerName: "Sensors", method: FormMethod.Get, routeValues: new { sensorId = @ViewBag.sensorId, usageId = usage.SensorUsageId }))
-                        {
-                            <button class="btn btn-primary">Add</button>
-                        }
+                        @Html.ActionLink("Add", "AddUsage", "Sensors", new { sensorId = @ViewBag.sensorId, usageId = usage.SensorUsageId }, null)
                     </td>
                 </tr>
             }

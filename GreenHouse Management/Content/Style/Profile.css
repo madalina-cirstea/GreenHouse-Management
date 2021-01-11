@@ -33,3 +33,14 @@
     float: left;
     margin-right: 1vw;
 }
+
+.imagineClassGreenhouse {
+    background-image: url("../Images/greenhouse_sensors.jpg") !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 30vh;
+    width: 356px;
+    margin-left: auto;
+    margin-right: auto;
+}
