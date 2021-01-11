@@ -25,5 +25,10 @@ namespace GreenHouse_Management.Models
         public string OperatingState { get; set; }
 
         public virtual ICollection<SensorUsage> SensorUsages { get; set; }
+
+        [Required]
+        [Display(Name = "Greenhouse")]
+        public int GreenhouseId { get; set; }
+        public virtual Greenhouse Greenhouse { get; set; }
     }
 }

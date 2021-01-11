@@ -287,6 +287,8 @@
     <Content Include="Views\SensorUsages\Index.cshtml" />
     <Content Include="Views\Sensors\AddUsages.cshtml" />
     <Content Include="Views\Sensors\RemoveUsages.cshtml" />
+    <Content Include="Views\Sensors\GreenhouseSensors.cshtml" />
+    <Content Include="Views\Greenhouses\Sensors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

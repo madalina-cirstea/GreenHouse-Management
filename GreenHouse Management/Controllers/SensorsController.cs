@@ -20,11 +20,16 @@ namespace GreenHouse_Management.Controllers
             return View(sensors);
         }
 
-        // GET: /Sensors/Add
-        public ActionResult Add()
+        // GET: /Sensors/Add/greenhouseId
+        public ActionResult Add(int? id)
         {
-            Sensor sensor = new Sensor();
-            return View(sensor);
+            if (id.HasValue)
+            {
+                Sensor sensor = new Sensor();
+                sensor.GreenhouseId = (int)id;
+                return View(sensor);
+            }
+            return HttpNotFound("Missing greenhouse id parameter!");
         }
 
         // POST: /Sensors/Create
@@ -33,11 +38,16 @@ namespace GreenHouse_Management.Controllers
         {
             try
             {
+                Greenhouse g = ctx.Greenhouses.Find(s.GreenhouseId);
+                if (g == null)
+                    return HttpNotFound("Couldn't find the greenhouse with id " + s.GreenhouseId.ToString());
+                s.Greenhouse = g;
+
                 if (ModelState.IsValid)
                 {
                     ctx.Sensors.Add(s);
                     ctx.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Sensors", "Greenhouses");
                 }
 
                 return View("Add", s);
@@ -49,11 +59,11 @@ namespace GreenHouse_Management.Controllers
         }
 
         // GET: /Sensors/AddUsages/sensorId
-        public ActionResult AddUsages(int? sensorId)
+        public ActionResult AddUsages(int? id)
         {
-            if (sensorId.HasValue)
+            if (id.HasValue)
             {
-                ViewBag.sensorId = sensorId;
+                ViewBag.sensorId = id;
                 List<SensorUsage> sensorUsages = ctx.SensorUsages.ToList();
                 return View(sensorUsages);
             }
@@ -75,24 +85,26 @@ namespace GreenHouse_Management.Controllers
 
                 sensor.SensorUsages.Add(usage);
                 ctx.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Sensors", "Greenhouses");
             }
+
+
+            if (!sensorId.HasValue)
+                return HttpNotFound("Missing sensor id parameter!");
 
             if (!usageId.HasValue)
                 return HttpNotFound("Missing usage id parameter!");
 
-            if (!sensorId.HasValue)
-                return HttpNotFound("Missing sensor id parameter!");
 
             return HttpNotFound("Missing parameters!");
         }
 
         // GET: /Sensors/RemoveUsages/sensorId
-        public ActionResult RemoveUsages(int? sensorId)
+        public ActionResult RemoveUsages(int? id)
         {
-            if (sensorId.HasValue)
+            if (id.HasValue)
             {
-                ViewBag.sensorId = sensorId;
+                ViewBag.sensorId = id;
                 List<SensorUsage> sensorUsages = ctx.SensorUsages.ToList();
                 return View(sensorUsages);
             }
@@ -114,7 +126,7 @@ namespace GreenHouse_Management.Controllers
 
                 sensor.SensorUsages.Remove(usage);
                 ctx.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Sensors", "Greenhouses");
             }
 
             if (!usageId.HasValue)
@@ -158,7 +170,7 @@ namespace GreenHouse_Management.Controllers
                         sensor.OperatingState = s.OperatingState;
                         ctx.SaveChanges();
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Sensors", "Greenhouses");
                 }
                 return View("Edit", s);
             }
@@ -179,11 +191,28 @@ namespace GreenHouse_Management.Controllers
                 {
                     ctx.Sensors.Remove(sensor);
                     ctx.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Sensors", "Greenhouses");
                 }
                 return HttpNotFound("Couldn't find the sensor with id " + id.ToString());
             }
             return HttpNotFound("Missing sensor id parameter!");
+        }
+
+        // GET: /Sensors/GreenhouseSensors/greenhouseId
+        public ActionResult GreenhouseSensors(int? greenhouseId)
+        {
+            if (greenhouseId.HasValue)
+            {
+                Greenhouse greenhouse = ctx.Greenhouses.Find(greenhouseId);
+
+                if (greenhouse == null)
+                    return HttpNotFound("Couldn't find the greenhouse with id " + greenhouseId.ToString());
+
+                ViewBag.greenhouseId = greenhouseId;
+                List<Sensor> sensors = greenhouse.Sensors.ToList();
+                return View(sensors);
+            }
+            return HttpNotFound("Missing greenhouse id parameter!");
         }
     }
 }

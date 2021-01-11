@@ -17,8 +17,8 @@ namespace GreenHouse_Management.Models
         public string Name { get; set; }
 
         [Required]
-        [MinLength(10, ErrorMessage = "Product name cannot be less than 10!"),
-         MaxLength(50, ErrorMessage = "Product name cannot be more than 50!")]
+        [MinLength(10, ErrorMessage = "Product description cannot be less than 10!"),
+         MaxLength(50, ErrorMessage = "Product description cannot be more than 50!")]
         public string Description { get; set; }
 
         [Required]

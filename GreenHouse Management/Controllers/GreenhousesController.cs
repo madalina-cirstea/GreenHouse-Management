@@ -8,7 +8,8 @@ using System.Web.Mvc;
 
 namespace GreenHouse_Management.Controllers
 {
-    [Authorize(Roles = "Customer")]
+    [AllowAnonymous]
+    //[Authorize(Roles = "Customer")]
     public class GreenhousesController : Controller
     {
         private readonly ApplicationDbContext ctx = new ApplicationDbContext();
@@ -19,7 +20,7 @@ namespace GreenHouse_Management.Controllers
         {
             string userId = User.Identity.GetUserId();
 
-            Greenhouse greenhouse = ctx.Greenhouses.FirstOrDefault(g => g.User.Id.Equals(userId));            
+            Greenhouse greenhouse = ctx.Greenhouses.FirstOrDefault(g => g.User.Id.Equals(userId));
 
             if (greenhouse == null)
             {
@@ -58,6 +59,22 @@ namespace GreenHouse_Management.Controllers
             {
                 return View("Register", greenhouse);
             }
+        }
+
+        // GET: Greenhouses/Sensors
+        // get greenhouse's sensors for current user
+        public ActionResult Sensors()
+        {
+            string userId = User.Identity.GetUserId();
+
+            Greenhouse greenhouse = ctx.Greenhouses.FirstOrDefault(g => g.User.Id.Equals(userId));
+
+            if (greenhouse == null)
+                return RedirectToAction("Register");
+
+            ViewBag.greenhouseId = greenhouse.GreenhouseId;
+            List<Sensor> sensors = greenhouse.Sensors.ToList();
+            return View(sensors);
         }
     }
 }

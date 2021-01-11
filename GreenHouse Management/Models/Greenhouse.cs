@@ -33,5 +33,7 @@ namespace GreenHouse_Management.Models
 
         [Required]
         public virtual ApplicationUser User { get; set; }
+
+        public virtual ICollection<Sensor> Sensors { get; set; }
     }
 }
