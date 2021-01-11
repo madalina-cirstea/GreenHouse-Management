@@ -1,0 +1,28 @@
+﻿.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.card_square_class {
+    padding-top: 30px;
+}
+
+.greenhouse_register_img_class {
+    width: 530px;
+    height: 380px;
+}
+
+.registration_form_class {
+    padding-left: 45px;
+}
+
+.greenhouse_profile_img_class {
+    width: 420px;
+    height: 350px;
+}
+
+.profile_form_class {
+    padding-top: 30px;
+    padding-left: 80px;
+}
+

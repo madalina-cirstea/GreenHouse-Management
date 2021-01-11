@@ -205,7 +205,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\employee_profile_img.png" />
+    <Content Include="Content\Images\greenhouse_img.jpg" />
+    <Content Include="Content\Images\greenhouse_profile.png" />
     <Content Include="Content\Images\shop_img.png" />
+    <Content Include="Content\Style\Greenhouse.css" />
     <Content Include="Content\Style\Profile.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

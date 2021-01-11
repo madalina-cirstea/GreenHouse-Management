@@ -1,7 +1,17 @@
 ﻿@model GreenHouse_Management.Models.Greenhouse
 
-<h4>@Model.Name</h4>
-<h4>@Model.RegistrationDate</h4>
-<h4>@Model.Location</h4>
-<h4>@Model.HardinessZone</h4>
+<link rel="stylesheet" href="~/Content/Style/Greenhouse.css?id=22" />
 
+<div class="card">
+    <div class="card-horizontal card_square_class">
+        <div class="img-square-wrapper">
+            <img class="greenhouse_profile_img_class" src="~/Content/Images/greenhouse_profile.png" alt="Card image cap">
+        </div>
+        <div class="card-body profile_form_class">
+            <h4><b>Greenhouse name: </b>@Model.Name</h4>
+            <h4><b>Registration date: </b>@Model.RegistrationDate</h4>
+            <h4><b>Location: </b>@Model.Location</h4>
+            <h4><b>Hardiness zone: </b>@Model.HardinessZone</h4>
+        </div>
+    </div>
+</div>

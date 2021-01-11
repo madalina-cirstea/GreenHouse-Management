@@ -23,7 +23,7 @@ namespace GreenHouse_Management.Models
 
         [Required]
         [Range(1, 13, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
-        [Display(Name = "Hardiness zone")]
+        [Display(Name = "Hardiness")]
         public int HardinessZone { get; set; }
 
         [Required]

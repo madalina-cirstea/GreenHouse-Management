@@ -1,41 +1,56 @@
 ﻿@model GreenHouse_Management.Models.Greenhouse
 
-@using (Html.BeginForm("Register", "Greenhouses", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(g => g.GreenhouseId)
+<link rel="stylesheet" href="~/Content/Style/Greenhouse.css?id=22" />
 
-    <h4>First, register your greenhouse</h4>
-    <hr />
-
-    <div class="form-group">
-        @Html.LabelFor(g => g.Name, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(g => g.Name, new { placeholder = "eg. Your greenhouse's name", @class = "form-control" })
-            @Html.ValidationMessageFor(g => g.Name, "", new { @class = "text-danger" })
+<div class="card">
+    <div class="card-horizontal card_square_class">
+        <div class="img-square-wrapper">
+            <img class="greenhouse_register_img_class" src="~/Content/Images/greenhouse_img.jpg" alt="Card image cap">
         </div>
+        <div class="card-body registration_form_class">
+            @using (Html.BeginForm("Register", "Greenhouses", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
 
-        <br /><br /><br />
+                @Html.HiddenFor(g => g.GreenhouseId)
 
-        @Html.LabelFor(g => g.Location, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(g => g.Location, new { placeholder = "eg. Your greenhouse's location", @class = "form-control" })
-            @Html.ValidationMessageFor(g => g.Location, "", new { @class = "text-danger" })
-        </div>
+                <h3>First, register your greenhouse</h3>
+                <p class="card-text">After registration you can use all the application's available features.</p>
 
-        <br /><br /><br />
+                <hr />
 
-        @Html.LabelFor(g => g.HardinessZone, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(g => g.HardinessZone, new { placeholder = "eg. zone 1-13", @class = "form-control" })
-            <br />
-            @Html.ValidationMessageFor(g => g.HardinessZone, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(g => g.Name, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(g => g.Name, new { placeholder = "eg. Your greenhouse's name", @class = "form-control" })
+                        @Html.ValidationMessageFor(g => g.Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <br /><br /><br />
+
+                    @Html.LabelFor(g => g.Location, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(g => g.Location, new { placeholder = "eg. Your greenhouse's location", @class = "form-control" })
+                        @Html.ValidationMessageFor(g => g.Location, "", new { @class = "text-danger" })
+                    </div>
+
+                    <br /><br /><br />
+
+                    @Html.LabelFor(g => g.HardinessZone, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(g => g.HardinessZone, new { placeholder = "eg. zone 1-13", @class = "form-control" })
+                        <br />
+                        @Html.ValidationMessageFor(g => g.HardinessZone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-success inline_button" value="Register" />
+                    </div>
+                </div>
+            }
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-success inline_button" value="Register" />
-        </div>
-    </div>
-}
+</div>
